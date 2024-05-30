@@ -77,7 +77,7 @@ def get_db() -> MySQLConnection:
     return mydb
 
 
-def main() -> None:
+"""def main() -> None:
     '''main function
     '''
     formatter = RedactingFormatter(fields=("phone",
@@ -91,11 +91,14 @@ def main() -> None:
     for row in cursor:
         log_record = logging.LogRecord("my_logger",
                                        logging.INFO,
-                                       None, None,
-                                       row, None, None)
+                                       None,
+                                       None,
+                                       row,
+                                       None,
+                                       None)
         print(formatter.format(log_record))
     cursor.close()
     db.close()
 
 
-main()
+main()"""
