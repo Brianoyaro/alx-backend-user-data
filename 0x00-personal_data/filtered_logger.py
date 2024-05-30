@@ -64,7 +64,7 @@ def get_db():
     '''
     db_user_name = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
     db_passwd = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
-    db.host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
     db_name = os.getenv('PERSONAL_DATA_DB_NAME')
     # how to return a connector?
     # how to use _mysql_connector to connect to mysl
