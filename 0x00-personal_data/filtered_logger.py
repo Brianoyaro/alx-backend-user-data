@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 '''Regex-ing  module
 '''
-from mysql.connector.connection import MySQLConnection
 import mysql.connector
+from mysql.connector.connection import MySQLConnection
 import os
 import logging
 import re
@@ -75,3 +75,27 @@ def get_db() -> MySQLConnection:
             password=db_passwd,
             database=db_name)
     return mydb
+
+
+def main() -> None:
+    '''main function
+    '''
+    formatter = RedactingFormatter(fields=("phone",
+                                           "name",
+                                           "email",
+                                           "ssn",
+                                           "password"))
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users")
+    for row in cursor:
+        log_record = logging.LogRecord("my_logger",
+                                       logging.INFO,
+                                       None, None,
+                                       row, None, None)
+        print(formatter.format(log_record))
+    cursor.close()
+    db.close()
+
+
+main()
