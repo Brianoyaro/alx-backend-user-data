@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''Regex-ing  module
 '''
+import os
 import logging
 import re
 from typing import List
@@ -16,7 +17,7 @@ def filter_datum(fields: List[str],
     value = message
     for field in fields:
         sub = field + '=' + redaction
-        value = re.sub(r'{}[=\w\d/-]*'.format(field), sub, value)
+        value = re.sub(r'{}[=\w\d/-@\.]*'.format(field), sub, value)
     return value
 
 
@@ -47,3 +48,14 @@ def get_logger() -> logging.Logger:
     stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.setHandler(stream_handler)
     return logger
+
+
+def get_db():
+    '''returns a connector to the database
+    '''
+    db_user_name = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    db_passwd = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    db.host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.getenv('PERSONAL_DATA_DB_NAME')
+    # how to return a connector?
+    # how to use _mysql_connector to connect to mysl
