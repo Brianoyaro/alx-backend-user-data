@@ -14,6 +14,8 @@ def filter_datum(fields: List[str],
                  redaction: str,
                  message: str,
                  separator: str) -> str:
+    '''obsfuscates fields in message using redaction
+    '''
     value = message
     for field in fields:
         sub = field + '=' + redaction
@@ -34,6 +36,8 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        '''takes a logRecord and formats it to uman readable format
+        '''
         return filter_datum(self.fields, self.REDACTION,
                             super().format(record), self.SEPARATOR)
 
