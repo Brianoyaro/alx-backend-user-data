@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''Regex-ing  module
 '''
+import mysql.connector
 import os
 import logging
 import re
@@ -67,3 +68,8 @@ def get_db():
     db_name = os.getenv('PERSONAL_DATA_DB_NAME')
     # how to return a connector?
     # how to use _mysql_connector to connect to mysl
+    mydb = mysql.connector.connect(
+            host=db_host,
+            user=db_user_name,
+            password=db_passwd)
+    return mydb
