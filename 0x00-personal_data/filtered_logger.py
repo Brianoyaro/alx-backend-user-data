@@ -19,7 +19,6 @@ def filter_datum(fields: List[str],
     value = message
     for field in fields:
         sub = field + '=' + redaction
-        # value = re.sub(r'{}[=\w\d/-@\.]*'.format(field), sub, value)
         value = re.sub(r'{}[=\w\d@\.-]*'.format(field), sub, value)
     return value
 
@@ -39,8 +38,12 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         '''takes a logRecord and formats it to uman readable format
         '''
+        '''return filter_datum(self.fields, self.REDACTION,
+                            super().format(record), self.SEPARATOR)'''
+        formatter = logging.Formatter(self.FORMAT)
+        value = formatter.format(record)
         return filter_datum(self.fields, self.REDACTION,
-                            super().format(record), self.SEPARATOR)
+                            value, self.SEPARATOR)
 
 
 def get_logger() -> logging.Logger:
