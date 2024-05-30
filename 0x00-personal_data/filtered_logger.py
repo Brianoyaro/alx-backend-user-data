@@ -19,7 +19,8 @@ def filter_datum(fields: List[str],
     value = message
     for field in fields:
         sub = field + '=' + redaction
-        value = re.sub(r'{}[=\w\d/-@\.]*'.format(field), sub, value)
+        # value = re.sub(r'{}[=\w\d/-@\.]*'.format(field), sub, value)
+        value = re.sub(r'{}[=\w\d@-]*'.format(field), sub, value)
     return value
 
 
