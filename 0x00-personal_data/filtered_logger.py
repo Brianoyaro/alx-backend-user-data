@@ -40,12 +40,10 @@ class RedactingFormatter(logging.Formatter):
         '''
         '''return filter_datum(self.fields, self.REDACTION,
                             super().format(record), self.SEPARATOR)'''
-        '''formatter = logging.Formatter(self.FORMAT)
+        formatter = logging.Formatter(self.FORMAT)
         value = formatter.format(record)
         return filter_datum(self.fields, self.REDACTION,
-                            value, self.SEPARATOR)'''
-        record.msg = filter_datum(self.fields, self.REDACTION, record.getMessage(), self.SEPARATOR)
-        return super(RedactingFormatter, self).format(record)
+                            value, self.SEPARATOR)
 
 
 def get_logger() -> logging.Logger:
