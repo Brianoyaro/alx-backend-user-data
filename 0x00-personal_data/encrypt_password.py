@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+'''hashing password with bcrypt  module
+'''
 import bcrypt
 
 
