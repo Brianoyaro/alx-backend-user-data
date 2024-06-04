@@ -43,13 +43,11 @@ class BasicAuth(Auth):
                 not isinstance(decoded_base64_authorization_header, str) or\
                 ':' not in decoded_base64_authorization_header:
             return (None, None)
+        email, passwd = decoded_base64_authorization_header.split(':')
         # MODIFIED HERE
-        # email, passwd = decoded_base64_authorization_header.split(':')
-        data = decoded_base64_authorization_header.split(':')
+        '''data = decoded_base64_authorization_header.split(':')
         email = data[0]
-        passwd = ':'.join(data[1:])
-        # password is same
-        # passwd.replace(':', '')
+        passwd = ':'.join(data[1:])'''
         return (email, passwd)
 
     def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
@@ -62,18 +60,18 @@ class BasicAuth(Auth):
         user = User.search({'email': user_email})
         if len(user) == 0:
             return None
-        '''user = user[0]
+        user = user[0]
         if user.is_valid_password(user_pwd):
             return user
-        return None'''
+        return None
         # MODIFIED HERE
-        usr_list = []
+        ''' usr_list = []
         for usr in user:
             if usr.is_valid_password(user_pwd):
                 usr_list.append(usr)
         if len(usr_list) == 0:
             return None
-        return usr_list
+        return usr_list'''
 
     def current_user(self, request=None) -> TypeVar('User'):
         header = self.authorization_header(request)
@@ -86,6 +84,5 @@ class BasicAuth(Auth):
         if decoded is None:
             return None
         email, passwd = self.extract_user_credentials(decoded)
-        print("{}: {}".format(email, passwd))
         user = self.user_object_from_credentials(email, passwd)
         return user

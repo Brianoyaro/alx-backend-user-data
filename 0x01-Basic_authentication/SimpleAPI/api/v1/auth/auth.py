@@ -16,9 +16,9 @@ class Auth:
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
         for item in excluded_paths:
-            item = item.strip('*')
-            # if item.startswith(path):
-            if path.startswith(item):
+            '''item = item.strip('*')
+            if path.startswith(item):'''
+            if item.startswith(path):
                 return False
         return True
 
