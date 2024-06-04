@@ -13,6 +13,8 @@ class BasicAuth(Auth):
     '''
     def extract_base64_authorization_header(self,
                                             authorization_header: str) -> str:
+        '''extracts section of authorization header
+        necesssary for authorization'''
         '''if authorization_header is None or\
                 not isinstance(authorization_header, str) or\
                 not authorization_header.startswith('Basic '):
@@ -27,18 +29,22 @@ class BasicAuth(Auth):
 
     def decode_base64_authorization_header(self,
                                            base64_authorization_header: str) -> str:
+        '''decodes and auth header
+        '''
         if base64_authorization_header is None or\
                 not isinstance(base64_authorization_header, str):
             return None
         try:
             decoded_header = base64.b64decode(base64_authorization_header).\
                     decode('utf-8')
-        except:
+        except Exception:
             return None
         else:
             return decoded_header
 
     def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):
+        '''extracts user creds for verification later on
+        '''
         if decoded_base64_authorization_header is None or\
                 not isinstance(decoded_base64_authorization_header, str) or\
                 ':' not in decoded_base64_authorization_header:
@@ -51,6 +57,8 @@ class BasicAuth(Auth):
         return (email, passwd)
 
     def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        '''gets user from creds
+        '''
         if user_email is None or not isinstance(user_email, str) or\
                 user_pwd is None or not isinstance(user_pwd, str):
             return None
@@ -74,6 +82,8 @@ class BasicAuth(Auth):
         return usr_list'''
 
     def current_user(self, request=None) -> TypeVar('User'):
+        '''gets current user
+        '''
         header = self.authorization_header(request)
         if header is None:
             return None

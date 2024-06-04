@@ -23,10 +23,14 @@ class Auth:
         return True
 
     def authorization_header(self, request=None) -> str:
+        '''gets the data from authorization header bit
+        '''
         if request is None:
             return None
         value = request.authorization
         return value
 
     def current_user(self, request=None) -> TypeVar('User'):
+        '''gets current user
+        '''
         return None
