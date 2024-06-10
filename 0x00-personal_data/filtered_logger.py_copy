@@ -77,27 +77,28 @@ def get_db() -> MySQLConnection:
     return mydb
 
 
-def main():
+"""def main() -> None:
     '''main function
     '''
-    formatter = RedactingFormatter(fields=["phone",
+    formatter = RedactingFormatter(fields=("phone",
                                            "name",
                                            "email",
                                            "ssn",
-                                           "password"])
-    logger = logging.getLogger('user_data')
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
-    logger.addHandler(stream_handler)
+                                           "password"))
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users")
     for row in cursor:
-        logger.info(row)
+        log_record = logging.LogRecord("my_logger",
+                                       logging.INFO,
+                                       None,
+                                       None,
+                                       row,
+                                       None,
+                                       None)
+        print(formatter.format(log_record))
     cursor.close()
     db.close()
 
 
-main()
+main()"""
