@@ -97,8 +97,9 @@ class Auth:
             user = self._db.find_user_by(id=user_id)
         except NoResultFound:
             user = None
-        if user is not None:
-            self._db.update_user(user.id, session_id=None)
+        else:
+            if user is not None:
+                self._db.update_user(user.id, session_id=None)
         return None
 
     def get_reset_password_token(email: str) -> str:
