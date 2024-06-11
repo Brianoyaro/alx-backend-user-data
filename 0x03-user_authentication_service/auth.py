@@ -93,7 +93,8 @@ class Auth:
         '''deletes a user's session
         '''
         try:
-            user = self._db.find_user_by(user_id=user_id)
+            # user = self._db.find_user_by(user_id=user_id)
+            user = self._db.find_user_by(id=user_id)
         except NoResultFound:
             user = None
         if user is not None:
