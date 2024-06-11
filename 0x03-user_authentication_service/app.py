@@ -97,7 +97,8 @@ def reset_password():
         abort(403)
     AUTH.update_password(reset_token, new_password)'''
     try:
-        user = AUTH._db.find_user_by(reset_token=reset_token, email=email)
+        # user = AUTH._db.find_user_by(reset_token=reset_token, email=email)
+        user = AUTH._db.find_user_by(email=email)
     except NoResultFound:
         abort(403)
     else:
