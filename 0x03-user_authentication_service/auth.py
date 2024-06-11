@@ -89,7 +89,7 @@ class Auth:
             return None
         return user
 
-    def destroy_session(user_id: int) -> None:
+    def destroy_session(self, user_id: int) -> None:
         '''deletes a user's session
         '''
         try:
@@ -103,7 +103,7 @@ class Auth:
         finally:
             return None
 
-    def get_reset_password_token(email: str) -> str:
+    def get_reset_password_token(self, email: str) -> str:
         '''generates reset_token
         '''
         try:
@@ -114,13 +114,13 @@ class Auth:
         self._db.update_user(user.id, reset_token=reset_token)
         return reset_token
 
-    def update_password(reset_token: str, password: str) -> None:
+    def update_password(self, reset_token: str, password: str) -> None:
         '''updates a user's password
         '''
         try:
             user = self._db.find_user_by(reset_token=reset_token)
         except NoResultFound:
             raise ValueError()
-        hashed_pw = bcrypt.hashpw(password, bcrypt.gensalt())
-        self._db.update_user(user.id, hashed_password=hased_pw, reset_token=None)
+        hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        self._db.update_user(user.id, hashed_password=hashed_pw, reset_token=None)
         return None
