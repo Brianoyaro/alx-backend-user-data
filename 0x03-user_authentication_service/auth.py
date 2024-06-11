@@ -100,7 +100,8 @@ class Auth:
         else:
             if user is not None:
                 self._db.update_user(user.id, session_id=None)
-        return None
+        finally:
+            return None
 
     def get_reset_password_token(email: str) -> str:
         '''generates reset_token
